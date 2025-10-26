@@ -3,7 +3,7 @@
 ## Consignes Générales
 
 - Cloner le TP sur votre machine
-- Tout vos travaux devront etre giter et rendu via votre fork (envoi du lien du dépot par mail). GitHub, Gitlab.com ou Gitlab dédié. 
+- Tous vos travaux devront être *giter* et rendu via votre fork (envoi du lien du dépot par mail).
 - N'hésitez pas à faire de nombreux commits afin de revenir plus facilement en arrière si nécessaire
 - L'énoncé sert également de fichier de compte rendu pour les questions `--> À compléter`
 
@@ -18,21 +18,25 @@
     ```bash
     cd P1/react-hello
     npm install
-    npm start
+    npm run dev
      ```
 - Créer une image Docker avec une l'APP front Hello world en React (Utilisation de Dockerfile)
    - On prendra soin de ne pas inclure des fichiers et dossiers inutiles dans l'image (fichier .dockerignore)
-- Construire l'image en local, crée un conteneur l'utiisant et accèder à l'app
+- Construire l'image en local, crée un conteneur l'utilisant et accèder à l'app
 
 --> À compléter : Fournir les commandes utilisées
+
+- Écrire un fichier `docker-compose.yml` permettant de déployer cette application
 
 - Se connecter au VPS Debian fournie (durant l'installation vous pouvez avancer sur la partie 2)
     - Me transmettre votre clé publique SSH : ag@tetras-libre.fr
     - Se connecter en ssh 
-    - Installer Docker et docker-compose 
+    - Installer Docker et docker-compose
     - Lancer `docker run hello-world` pour vérifier que votre installation fonctionne bien
 - Déployer l'app `react-hello` sur le VPS via docker-compose 
-    - Vérifier que celle ci est bien accessible
+  - Note : Il peut être utile de passer par un multi stage build
+ 
+- Vérifier que celle-ci est bien accessible
 
 - Publier votre image sur Dockerhub 
 
@@ -40,35 +44,83 @@
 
 - Modifier votre fichier docker-compose pour que votre app utilise l'image Dockerhub
 
-- Fournissez dans `P1` le ou les fichiers compose finaux.    
-
+- Fournissez dans `P1` le ou les fichiers compose finaux et le fichier Dockerfile.
 
 ## Partie 2 : Docker et Docker-compose the real way
 
 - L'app de démo `react-hello2` devient un peu plus complexe et utilise maintenant un backend Next.JS et une BDD mariaDB 
    - L'app sera composé de 3 conteneur : frontend, un backend et une BDD mariadb  
-   - Ecrire le fichier `docker-compose` permettant de déployer cette application
+   - La BDD contient des données random
+   - Le front end affiche ses données en interrogeant le backend 
+   - Les secrets doivent être gérés via des variables d'environnements
+   - Écrire les fichiers `Dockerfile' et  `docker-compose` permettant de déployer cette application
 
-- Supprimer les containers, est ce que les données sont toujours là ?
+- Supprimer les containers, est-ce que les données sont toujours là ?
    - Utiliser des volumes si ce n'est pas le cas
 
-- Réduiser au maximum les possibilités de contact entre les conteneurs
+- Réduisez au maximum les possibilités de contact entre les conteneurs
    - Le front doit pouvoir communiquer avec le back.
    - Le back doit pouvoir communiquer avec la BDD
    - Pas de contact possible entre front et BDD
    - les `links` ne sont pas authorisés, utilisez seulement des `networks`   
 
 - Déployer cette application sur le VPS
+   - Utiliser un VPS Azur avec crédit étudiant ou VPS OVH Tetras si reçu 
 
 - Accèder à la BDD de données depuis votre poste en passant par un tunnel SSH. Je vous conseille l'outil DBeaver. 
-    - Seulement le front doit être exposé sur le net, attention à la sécurité 
+    - Seulement le front et l'API doivent être exposé sur le net, attention à la sécurité 
 
 - Fournissez dans `P2` le ou les fichiers compose finaux.    
 
 
-## Partie 3 : Utiliser un Application Proxy - Traefik
+## Partie 3 : Dockeriser une application existante
+
+- Choisir une application existante non dockerisée disponible sur Github
+  - La complexité de l'application choisie influera la notation
+  - Une liste d'application possible est fournie en fin de partie
+
+--> Fournir l'URL du dépot de l'application
+--> Décrire les enjeux techniques de la conteneurisation liée à l'application (technologies plus mises à jour, nombreuses dépendances, interconnexion avec d'autres systèmes ...)
+
+- Écrire l'ensemble des fichiers permettant de déployer cette application avec Docker, docker-compose
+
+- Critères évalués
+   - Build reproductible (npm ci, pip install --no-deps, --frozen-lockfile, etc. selon techno).
+   - Pas de secrets commités. 
+   - Healthcheck présent. 
+   - Persistence documentée. 
+   - Exposition réseau minimale, Aucune base de données exposée publiquement. 
+   - Conteneurs runtime non-root quand praticable.
+
+- Déployer l'application choisie sur votre VPS
+
+- Faire une PR de votre travail à l'application choisie
+
+Liste application proposée à dockeriser, vous pouvez en choisir une autre si vous le souhaitez :
+Certaines sont vielles, mal documentés, incompréhensibles, c'est volontaire !
+
+- https://github.com/projectmirador/mirador-integration
+- https://github.com/Aikon-platform/aiiinotate
+- https://github.com/geogebra/geogebra
+- https://github.com/LeedRSS/Leed
+- https://github.com/gohugoio/hugo
+- https://github.com/usebruno/bruno
+- https://github.com/bigprof-software/online-rental-property-manager
+- https://github.com/adnodev/adno
+- https://github.com/leanderseige/antlitz.ninja
+- https://github.com/atomotic/iiif-annotation-studio
+- https://github.com/chartes/adele-app
+- https://github.com/KirinoSan1/IIIF-Application
+- https://github.com/slub/iiif-mirador-wrapper-application
+- https://github.com/leanderseige/antlitz.ninja
+- https://github.com/atomotic/iiif-annotation-studio
+
+- Fournissez dans `P3` le ou les fichiers compose finaux.
+
+## Partie 4 : Utiliser un Application Proxy - Traefik
 
 - Qu'est ce qu'un Reverse Proxy et à quoi est ce que ça sert ? 
+- Qu'est ce qu'un Application Proxy et à quoi est ce que ça sert ?
 
 --> À compléter
 
@@ -79,57 +131,28 @@
    ![alt text](image.png)
 
 
-- Servir l'App Hello world grace à Traefik et à l'URL : partie3.*votreURLdeVPS*.
+- Servir l'App Hello world grace à Traefik et à l'URL : *votreURLdeVPS*/p4.
     - L'app doit fonctionner en HTTPS
-
 
 - Séparer votre fichier `docker-compose.yml` afin d'avoir un mode DEV utilisable en local sans Traefik et un mode PROD fonctionnant sans Traefik
     - Le passage de l'un à l'autre se fera en changeant la variable COMPOSE_FILE de votre `.env`
     - Dev : mapping de port autorisé,
     - Prod : utilisation de traefik sans mapping de port (à part pour Traefik lui même)
 
-- Fournissez dans `P2` le ou les fichiers compose finaux.    
-
-## Partie 4 : Dockeriser une application existante 
-
-- Déployer un nouveau applicatif (par exemple wordpress) en utilisant seulement des fichiers composes
-   - Le front end wordpress devra être déployé à : partie4.*votreURLdeVPS*.
-   - Aucun mapping de port autorisé
-   - obligation d'utiliser Traefik comme reverse proxy 
-
-## Partie 5 : Dockeriser une application existante 
-
-- Choisir une application existante non dockerisé disponible sur Github
-   - La complexité de l'application choisie influera la notation
-   - Une liste d'application possible est fournie en fin de TP 
-
---> Fournir l'URL du dépot de l'application
---> Décrire les enjeux techniques (technologies plus mises à jour, nombreuses dépendances, interconnexion avec d'autres systèmes ...)
-
-- Écrire l'ensemble des fichiers permettant de déployer cette application avec Docker , docker-compose et Traefik
-
-- Déployer l'application choisie à partie4.*votreURLdeVPS*.
-
-- Faire une PR de votre travail à l'application choisie
-
-Liste application à dockeriser : 
-
-- https://github.com/projectmirador/mirador
-- https://github.com/Aikon-platform/aiiinotate
-- https://github.com/geogebra/geogebra
-- https://github.com/LeedRSS/Leed
-- https://github.com/gohugoio/hugo
+- Fournissez dans `P4` le ou les fichiers compose finaux.    
 
 
 ## Conclusion
 
 La stack proposée `VPS + Docker + Docker-compose + Traefik` est suffisante pour une grande majorité des applications réelles et adaptée à des structures ou projet avec peu de ressources. 
-- Peu de complexité à mettre en oeuvre 
+- Peu de complexité à mettre en œuvre 
 - Environnement de dev et de prod avec peu de différence 
-- Technologie simple et maitrisés par de nombreuses personnes 
-- Des possibilités de monitoring presque sans limite avec Traefik
+- Technologie simple et maitrisée par de nombreuses personnes 
+- Des possibilités de monitoring presque sans limites avec Traefik
 - Peu de dépendances à des services tiers 
     - Un hébergeur VPS
     - DockerHub 
 
 --> À completer : Quelles sont les limites de cette approche et votre proposition de remplacement. (Réponse construite d'une dizaine de ligne)
+
+
