@@ -101,11 +101,13 @@ Cette partie pourra être réalisée plus tard si le VPS n'est pas encore dispon
     ```bash
     cd P2/react-hello2/backend
     npm install
-    npm start
+    npm run build
+    npm run dev
      ```
 
 
-  - Écrire les fichiers `Dockerfile' et  `docker-compose` permettant de déployer cette application
+- Écrire les fichiers `Dockerfile` et  `docker-compose` permettant de déployer cette application
+- D'éventuels changements dans le code source peuvent être nécessaires pour que l'application fonctionne correctement en conteneurisé
 
 - Supprimer les containers, est-ce que les données sont toujours là ?
   - Utiliser des volumes si ce n'est pas le cas

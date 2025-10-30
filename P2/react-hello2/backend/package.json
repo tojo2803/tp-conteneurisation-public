@@ -3,20 +3,22 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "start": "node dist/main.js"
+    "dev": "vite-node src/main.ts",
+    "build": "vite build",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
-    "mysql2": "^3.10.0",
-    "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1",
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "mariadb": "^3.4.5",
+    "mysql2": "^3.10.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.30",
     "typescript": "^5.4.0",
-    "@types/node": "^20.11.30"
+    "vite": "7.1.11",
+    "vite-node": "^3.2.4"
   }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 const API_URL =
-  import.meta.env.VITE_API_URL ||
-  `${window.location.protocol}//${window.location.hostname}:3000`;
+  import.meta.env.BACKEND_API_URL || "http://localhost:3000";
+
 export default function App() {
   const [time, setTime] = useState("loading...");
   const [items, setItems] = useState([]);
@@ -12,8 +12,8 @@ export default function App() {
       .catch(() => setTime("Error : Cannot connect to Backend API"));
     fetch(`${API_URL}/items`)
       .then((r) => r.json())
-      .then((d) => setItems(d.items || []))
-      .catch(() => setItems([]));
+      .then((d) => setItems(d.items || [{ id: 1, name: "Erreur lecture BDD" }]))
+      .catch(() => setTime("Error : Cannot connect to Backend API"));
   }, []);
   return (
     <div style={{ fontFamily: "system-ui, Arial", padding: 24 }}>
