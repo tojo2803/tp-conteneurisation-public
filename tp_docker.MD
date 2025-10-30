@@ -1,21 +1,49 @@
 # TP Utilisation de docker
 
-## Consignes Générales
+Objectifs : 
+- Apprendre à conteneuriser des applications simples ou complexes avec `docker` et Docker-compose,
+- déployer ces applications sur un VPS, utiliser un `application Proxy` (Traefik) pour gérer l'accès aux services conteneurisés.
+- Exposer de manière efficace et sécurisée des applications conteneurisées sur le web.
+
+Pré-requis :
+- Git
+- Notions de base en ligne de commande Linux
+- Notions de base en `docker` et Docker-compose
+- Avoir un environnement de développement fonctionnel (Linux, MacOS ou Windows WSL2)
+
+## Consignes générales
 
 - Cloner le TP sur votre machine
 - Tous vos travaux devront être versionnés avec Git et rendu via votre fork (envoi du lien du dépôt par mail `anthony.geourjon@tetras-libre.fr`).
 - N'hésitez pas à faire de nombreux commits afin de revenir plus facilement en arrière si nécessaire
 - L'énoncé sert également de fichier de compte rendu pour les questions `--> À compléter`
+- Un VPS (Debian) pourra vous être fourni pour le déploiement des applications
+
+```bash
+git clone https://gitlab.tetras-libre.fr/formation-epsi/tp-conteneurisation-public.git
+cd tp-conteneurisation-public
+git remote set-url origin <votre_url_de_depot_gitlab_ou_github> # je vous conseille GitHub via SSH
+git push -u origin main
+```
 
 ## Partie 0 : Mise en jambe
 
-- Installer Docker et Docker-Compose sur votre machine locale si vous ne l'avez pas déjà
+- Installer `docker` et `docker-compose` sur votre machine locale si vous ne l'avez pas déjà
 - Lancer `docker run hello-world` pour vérifier que votre installation fonctionne bien
 - Installer l'outil `ctop` (top like pour docker)
 - Installer l'outil `lazydocker` (interface TUI pour docker)
-- Installer l'outil `docker-slim` (outil d'optimisation d'image docker)
+- Installer l'outil `docker-slim` (outil d'optimisation d'image docker) 
 
-## Partie 1 : Docker et Docker-compose the simple way
+
+## Partie 0bis : installation du VPS
+
+Cette partie pourra être réalisée plus tard si le VPS n'est pas encore disponible
+- Se connecter en SSH au VPS Debian fournie (durant l'installation, vous pouvez avancer sur la partie 1).
+- Installer `docker` et `docker-compose`
+- Lancer `docker run hello-world` pour vérifier que votre installation fonctionne bien
+- Connaitre l'URL (FQDN) de votre VPS : `hostname -f`
+
+## Partie 1 : `Docker` et `Docker-compose` the simple way
 
 - Installer localement l'app `react-hello` et vérifier que tout fonctionne bien
     ```bash
@@ -23,7 +51,7 @@
     npm install
     npm run dev
      ```
-- Créer une image Docker avec une l'APP front Hello world en React (Utilisation de Dockerfile)
+- Créer une image `Docker` avec une l'APP front Hello world en React (Utilisation de Dockerfile)
   - On prendra soin de ne pas inclure des fichiers et dossiers inutiles dans l'image (fichier `.dockerignore`)
 - Construire l'image en local, crée un conteneur l'utilisant et accéder à l'app
 
@@ -31,14 +59,10 @@
 → À compléter : Fournir les commandes utilisées
 **********************
 - Écrire un fichier `docker-compose.yml` permettant de déployer cette application
-
-- Se connecter au VPS Debian fournie (durant l'installation, vous pouvez avancer sur la partie 2).
-  - Me transmettre votre clé publique SSH : ag@tetras-libre.fr
-  - Se connecter en ssh
-  - Installer Docker et docker-compose
-  - Lancer `docker run hello-world` pour vérifier que votre installation fonctionne bien
-- Déployer l'app `react-hello` sur le VPS via docker-compose
   - Note : Il peut être utile de passer par un multi stage build
+
+- Déployer l'app `react-hello` sur le VPS via `docker-compose`. 
+  - Accéder à l'application via le navigateur web
 
 - Vérifier que celle-ci est bien accessible
 
@@ -48,22 +72,39 @@
 → À compléter : Fournir URL de l'image sur Dockerhub
 **********************
 
-- Optimiser la taille de votre image avec docker-slim et la publier sur Dockerhub
+- Optimiser la taille de votre image avec `docker-slim` et la publier sur Dockerhub
 
 **********************
-→ À compléter : Fournir URL de l'image slim sur Dockerhub et la taille avant/après optimisation
+→ À compléter : Fournir URL de votre image slim sur Dockerhub et la taille avant/après optimisation
 **********************
-- Modifier votre fichier docker-compose pour que votre app utilise l'image Dockerhub
+
+- Modifier votre fichier `docker-compose.yml` pour que votre app utilise l'image Dockerhub
 
 - Fournissez dans `P1` le ou les fichiers compose finaux et le fichier Dockerfile.
 
-## Partie 2 : Docker et Docker-compose the real way
+## Partie 2 : `Docker` et `Docker-compose` the real way
 
 - L'app de démo `react-hello2` devient un peu plus complexe et utilise maintenant un backend Next.JS et une BDD mariaDB
   - L'app sera composé de 3 conteneur : frontend, un backend et une BDD mariadb
   - La BDD contient des données random
   - Le front end affiche ses données en interrogeant le backend
   - Les secrets doivent être gérés via des variables d'environnements
+
+- Installer localement l'app `react-hello2` et vérifier que tout fonctionne bien
+   - frontend 
+    ```bash
+    cd P2/react-hello2/frontend
+    npm install
+    npm run dev
+     ```
+  - Backend
+    ```bash
+    cd P2/react-hello2/backend
+    npm install
+    npm start
+     ```
+
+
   - Écrire les fichiers `Dockerfile' et  `docker-compose` permettant de déployer cette application
 
 - Supprimer les containers, est-ce que les données sont toujours là ?
@@ -139,7 +180,7 @@ Certaines sont vielles, mal documentées, incompréhensibles, c'est volontaire !
 → À compléter
 **********************
 
-- Installer et déployer Traefik via Docker sur votre VPS
+- Installer et déployer Traefik via `Docker` sur votre VPS
   - Traefik reçoit le Traefik sur les ports classiques (80, 443)
   - La page dashboard de Traefik est déployé à *votreURLdeVPS* et vous permet de vérifier que tout fonctionne
 
@@ -163,13 +204,13 @@ Certaines sont vielles, mal documentées, incompréhensibles, c'est volontaire !
 - Évaluer les travaux des autres binômes sur les critères suivants :
   - Fonctionnalité : Est-ce que l'application fonctionne correctement en local et sur le VPS
   - Qualité des Dockerfile : Est-ce que les images sont optimisées, sécurisées, maintenables
-  - Qualité des fichiers docker-compose : Est-ce que les fichiers sont clairs, bien structurés, sécurisés
+  - Qualité des fichiers `Docker-compose` : Est-ce que les fichiers sont clairs, bien structurés, sécurisés
   - Documentation : Est-ce que les travaux sont bien documentés, clairs et compréhensibles
   - Commentaires supplémentaires : [Ajouter des commentaires ou suggestions pour améliorer le travail évalué]
 
 ## Conclusion
 
-La stack proposée `VPS + Docker + Docker-compose + Traefik` est suffisante pour une grande majorité d'applications réelles et adaptées à des structures ou projet avec peu de ressources.
+La stack proposée `VPS + `Docker` + `Docker-compose` + Traefik` est suffisante pour une grande majorité d'applications réelles et adaptées à des structures ou projet avec peu de ressources.
 - Peu de complexité à mettre en œuvre
 - Environnement de dev et de prod avec peu de différence
 - Technologie simple et maîtrisée par de nombreuses personnes

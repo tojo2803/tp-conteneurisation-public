@@ -9,7 +9,7 @@ export default function App() {
     fetch(`${API_URL}/time`)
       .then((r) => r.json())
       .then((d) => setTime(d.serverTime))
-      .catch(() => setTime("error"));
+      .catch(() => setTime("Error : Cannot connect to Backend API"));
     fetch(`${API_URL}/items`)
       .then((r) => r.json())
       .then((d) => setItems(d.items || []))
