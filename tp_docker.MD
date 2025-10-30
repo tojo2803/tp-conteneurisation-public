@@ -119,12 +119,11 @@ Cette partie pourra être réalisée plus tard si le VPS n'est pas encore dispon
   - les `links` ne sont pas autorisés, utilisez seulement des `networks`
 
 - Déployer cette application sur le VPS
-  - Utiliser un VPS Azur avec crédit étudiant ou VPS OVH Tetras si reçu
 
 - Accéder à la BDD de données depuis votre poste en passant par un tunnel SSH. Je vous conseille l'outil DBeaver.
   - Seulement le front et l'API doivent être exposé sur le net, attention à la sécurité
 
-- Fournissez dans `P2` le ou les fichiers compose finaux.
+- Fournissez dans `P2` le ou les fichiers `docker-compose` finaux ainsi que les `Dockerfile` .
 
 
 ## Partie 3 : Conteneuriser des applications existantes
@@ -183,7 +182,7 @@ Certaines sont vielles, mal documentées, incompréhensibles, c'est volontaire !
 **********************
 
 - Installer et déployer Traefik via `Docker` sur votre VPS
-  - Traefik reçoit le Traefik sur les ports classiques (80, 443)
+  - Traefik reçoit le trafic sur les ports classiques (80, 443)
   - La page dashboard de Traefik est déployé à *votreURLdeVPS* et vous permet de vérifier que tout fonctionne
 
   ![alt text](image.png)
