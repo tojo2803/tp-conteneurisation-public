@@ -34,14 +34,6 @@ git push -u origin main
 - FACULTATIF : Installer l'outil `lazydocker` (interface TUI pour docker)
 
 
-## Partie 0bis : installation du VPS
-
-Cette partie pourra être réalisée plus tard si le VPS n'est pas encore disponible
-- Se connecter en SSH au VPS Debian fournie (durant l'installation, vous pouvez avancer sur la partie 1).
-- Installer `docker` et `docker-compose`
-- Lancer `docker run hello-world` pour vérifier que votre installation fonctionne bien
-- Connaitre l'URL (FQDN) de votre VPS : `hostname -f`
-
 ## Partie 1 : `Docker` et `Docker-compose` the simple way
 
 - Installer localement l'app `react-hello` et vérifier que tout fonctionne bien
@@ -50,28 +42,25 @@ Cette partie pourra être réalisée plus tard si le VPS n'est pas encore dispon
     npm install
     npm run dev
      ```
-- Créer une image `Docker` avec une l'APP front Hello world en React (Utilisation de Dockerfile)
+- Créer une image `Docker` avec une l'app front Hello world en React (Utilisation de Dockerfile)
   - On prendra soin de ne pas inclure des fichiers et dossiers inutiles dans l'image (fichier `.dockerignore`)
 - Construire l'image en local, crée un conteneur l'utilisant et accéder à l'app
 
 *********************
 → À compléter : Fournir les commandes utilisées
 **********************
+
 - Écrire un fichier `docker-compose.yml` permettant de déployer cette application
-  - Note : Il peut être utile de passer par un multi stage build
-
-- Déployer l'app `react-hello` sur le VPS via `docker-compose`. 
-  - Accéder à l'application via le navigateur web
-
-- Vérifier que celle-ci est bien accessible
 
 - Publier votre image sur Dockerhub
-- 
+
 **********************
-→ À compléter : Fournir URL de l'image sur Dockerhub
+→ À compléter : Fournir l'URL de votre image sur Dockerhub
 **********************
 
 - Optimiser la taille de votre image avec `docker-slim` et la publier sur Dockerhub
+   - `docker-slim` est un outil qui permet d'optimiser la taille des images Docker. 
+   - Il semble ne pas être disponible sous Windows. Si c'est votre cas, passer la question.
 
 **********************
 → À compléter : Fournir URL de votre image slim sur Dockerhub et la taille avant/après optimisation
@@ -79,7 +68,7 @@ Cette partie pourra être réalisée plus tard si le VPS n'est pas encore dispon
 
 - Modifier votre fichier `docker-compose.yml` pour que votre app utilise l'image Dockerhub
 
-- Fournissez dans `P1` le ou les fichiers compose finaux et le fichier Dockerfile.
+- Fournissez dans `P1` le ou les fichiers compose finaux ainsi que le fichier Dockerfile.
 
 ## Partie 2 : `Docker` et `Docker-compose` the real way
 
@@ -104,8 +93,8 @@ Cette partie pourra être réalisée plus tard si le VPS n'est pas encore dispon
     npm run dev
      ```
 
-
 - Écrire les fichiers `Dockerfile` et  `docker-compose` permettant de déployer cette application
+   - Note : Il peut être utile de passer par un multi stage build
 - D'éventuels changements dans le code source peuvent être nécessaires pour que l'application fonctionne correctement en conteneurisé
 
 - Supprimer les containers, est-ce que les données sont toujours là ?
@@ -117,13 +106,8 @@ Cette partie pourra être réalisée plus tard si le VPS n'est pas encore dispon
   - Pas de contact possible entre front et BDD
   - les `links` ne sont pas autorisés, utilisez seulement des `networks`
 
-- Déployer cette application sur le VPS
-
-- Accéder à la BDD de données depuis votre poste en passant par un tunnel SSH. Je vous conseille l'outil DBeaver.
-  - Seulement le front et l'API doivent être exposé sur le net, attention à la sécurité
 
 - Fournissez dans `P2` le ou les fichiers `docker-compose` finaux ainsi que les `Dockerfile` .
-
 
 ## Partie 3 : Conteneuriser des applications existantes
 
@@ -147,13 +131,12 @@ Cette partie pourra être réalisée plus tard si le VPS n'est pas encore dispon
   - Exposition réseau minimale, Aucune base de données exposée publiquement.
   - Conteneurs runtime non-root quand praticable.
 
-
 - Faire une PR de votre travail à l'application choisie
 
 Liste application proposée à conteneuriser, vous pouvez en choisir une autre si vous le souhaitez :
 Certaines sont vielles, mal documentées, incompréhensibles, c'est volontaire !
 
-- https://github.com/projectmirador/mirador-integration
+- https://github.com/Systemik-Solutions/glycerine-viewer
 - https://github.com/Aikon-platform/aiiinotate
 - https://github.com/geogebra/geogebra
 - https://github.com/LeedRSS/Leed
@@ -167,11 +150,10 @@ Certaines sont vielles, mal documentées, incompréhensibles, c'est volontaire !
 - https://github.com/KirinoSan1/IIIF-Application
 - https://github.com/slub/iiif-mirador-wrapper-application
 - https://github.com/leanderseige/antlitz.ninja
-- https://github.com/atomotic/iiif-annotation-studio
 
 - Fournissez dans `P3` le ou les fichiers compose finaux.
 
-## Partie 4 : Utiliser un Application Proxy - Traefik
+## Partie 4 BONUS: Utiliser un Application Proxy - Traefik
 
 - Qu'est-ce qu'un Reverse Proxy et à quoi est-ce que ça sert ?
 - Qu'est-ce qu'un `Application Proxy` et à quoi est-ce que ça sert ?
@@ -179,6 +161,15 @@ Certaines sont vielles, mal documentées, incompréhensibles, c'est volontaire !
 **********************
 → À compléter
 **********************
+
+- Se connecter en SSH à votre VPS
+- Installer `docker` et `docker-compose`
+- Lancer `docker run hello-world` pour vérifier que votre installation fonctionne bien
+- Connaitre l'URL (FQDN) de votre VPS : `hostname -f`
+
+- Déployer l'application de la partie 1 sur votre VPS
+  - L'application doit être accessible via l'IP de votre VPS et les ports classiques (80, 443)
+  - Vérifier que tout fonctionne bien
 
 - Installer et déployer Traefik via `Docker` sur votre VPS
   - Voir fichier `memoVPS.md` 
@@ -195,6 +186,9 @@ Certaines sont vielles, mal documentées, incompréhensibles, c'est volontaire !
   - Le passage de l'un à l'autre se fera en changeant la variable COMPOSE_FILE de votre `.env`
   - Dev : mapping de port autorisé,
   - Prod : utilisation de Traefik sans mapping de port (à part pour Traefik lui-même)
+
+- Déployer l'application de la partie 2 sur votre VPS
+  - L'application doit être accessible à p4-hello2.*votreURLdeVPS* et doit fonctionner en HTTPS
 
 - Fournissez dans `P4` le ou les fichiers compose finaux.
 
