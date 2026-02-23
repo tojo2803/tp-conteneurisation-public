@@ -34,7 +34,8 @@ export async function getPool(): Promise<Pool> {
     // simple connectivity check with retries
     let attempts = 0;
     let connected = false;
-    while (attempts < 3) {
+    const MAX_ATTEMPTS = 10;
+    while (attempts < MAX_ATTEMPTS) {
       try {
         const conn = await pool.getConnection();
         conn.release();
@@ -42,7 +43,7 @@ export async function getPool(): Promise<Pool> {
         break;
       } catch (e) {
         attempts++;
-        console.error(`Database connection failed (attempt ${attempts + 1}/3)`);
+        console.error(`Database connection failed (attempt ${attempts}/ ${MAX_ATTEMPTS})`);
         await new Promise(r => setTimeout(r, 1000));
       }
     }
