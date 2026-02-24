@@ -1,0 +1,11 @@
+#Pour run localement en utilise "$docker build -t react-hello ." ensuite "$docker run -p 5173:5173 reaact-hello"
+#Pour deployer l'application en utilisant le docker-composee.yml , on utilise le commande: "docker compose up"
+#Pour publier l'image sur DockerHub:
+    $docker login
+    -> Login Succeeded
+    $docker images (listes images à publier)
+    $docker tag react-hello:latest tojo2803/react-hello:latest (tag l'image en utilisant mon username docker Hub)
+    $docker push tojo2803/reactt-hello:latest (publier l'image sur docker hub)
+
+#Url de mon image sur dockerhub:
+    https://hub.docker.com/r/tojo2803/react-hello
