@@ -15,6 +15,7 @@ export class ItemsController {
 
 
     const [rows] = await pool.query('SELECT id, name, value FROM items ORDER BY id ASC');
+    
     return { items: rows as any };
   }
 }
