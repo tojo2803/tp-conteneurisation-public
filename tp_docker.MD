@@ -34,7 +34,7 @@ git push -u origin main
 - FACULTATIF : Installer l'outil `lazydocker` (interface TUI pour docker)
 
 
-## Partie 1 : `Docker` et `Docker-compose` the simple way
+## Partie 1 : `Docker` et `Docker-compose` the simple way     
 
 - Installer localement l'app `react-hello` et vérifier que tout fonctionne bien
     ```bash
