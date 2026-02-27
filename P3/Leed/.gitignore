@@ -1,0 +1,8 @@
+/cache/
+/constant.php
+/logs/
+/plugins/
+!/templates/marigolds/
+/templates/
+update.json
+*.log
